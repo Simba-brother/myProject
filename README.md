@@ -1,12 +1,12 @@
-# myProject
-这是一个旅游网项目。
+# TravelProject
+    **这是一个旅游网项目。**
 
 
 ## 总的来说：
-*前端用JQuery进行Ajax异步请求后台服务器的Servlet（这里用BaseServlet 进行了方法的分发）。运用JdbcTamplate对数据库进行查询与封装。运用Jackson对对象进行jsonxu序列化到前端。然后JQuery进行前端Dom操作，展示数据。其中后台从Servlet取得前台参数或从sessoin域中取得参数进行用BeanUtils进行简单封装。然后调用Service层（例如redis 操作），最后DAO层。*
+    *前端用JQuery进行Ajax异步请求后台服务器的Servlet（这里用BaseServlet 进行了方法的分发）。运用JdbcTamplate对数据库进行查询与封装。运用Jackson对对象进行jsonxu序列化到前端。然后JQuery进行前端Dom操作，展示数据。其中后台从Servlet取得前台参数或从sessoin域中取得参数进行用BeanUtils进行简单封装。然后调用Service层（例如redis 操作），最后DAO层。*
 
 ## 环境配置: Idea IDE; Maven.
-可以新建一个Maven项目然后，点击右边Mave侧边选项框点击+号，选中项目中的pom.xml；然后在congfig中配置maven tomcat7:run  ok了！，配置好maven的本地仓库。这一点可以在pom.xml中配置指定的本地仓库（jar）。
+    可以新建一个Maven项目然后，点击右边Mave侧边选项框点击+号，选中项目中的pom.xml；然后在congfig中配置maven tomcat7:run  ok了！，配置好maven的本地仓库。这一点可以在pom.xml中配置指定的本地仓库（jar）。
 
 ## 注册功能：
     注册表单通过引入前端异步框剪JQuery，通过Ajax异步post请求到UserServlet的regist方法（boolean），传递表单中的数据到后台Servlet.UserServlet extends BaseServlet. 而BaseServlet extends HttpServlet并且重写了service 方法，负责根据访问路径进行方法的分发（简化了Servlet）.因为，根据路径可以访问到UserServlet 然后tomact会找到BaseServlet的service方法，根据访问路径（字符串）运用反射机制 分发方法。
