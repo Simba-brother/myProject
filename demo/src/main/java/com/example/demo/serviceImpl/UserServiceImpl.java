@@ -6,6 +6,7 @@ import com.example.demo.mapper.UserMapper;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.alibaba.fastjson.JSON;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,4 +19,7 @@ public class UserServiceImpl implements UserService {
     public UserBean loginIn(String name, String password) {
         return userMapper.getInfo(name, password);
     }
+
+
+
 }
