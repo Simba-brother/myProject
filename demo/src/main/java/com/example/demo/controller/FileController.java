@@ -6,14 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import com.alibaba.fastjson.JSON;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
 @Controller
 public class FileController {
     @Autowired
     FileService fileService;
 
     @RequestMapping("/fileJson")
-    public String getJson() {
-        fileService.getLabel();
-        return "index";
+    public String getJson(HttpServletResponse response) throws IOException {
+        String html = fileService.getLabel();
+        response.setCharacterEncoding("utf-8");
+        PrintWriter respWritter = response.getWriter();
+        respWritter.write(html);
+        return "success";
     }
 }

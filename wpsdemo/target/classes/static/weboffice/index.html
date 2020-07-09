@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<body >
+        <h>在线编辑: </h>
+        <blockquote>
+        <input type="button" value="1.doc"  onclick="openFile('1.doc')"/>
+        <input type="button" value="2.xls"  onclick="openFile('2.xls')"/>
+        <input type="button" value="3.ppt"  onclick="openFile('3.ppt')"/>
+        </blockquote>
+</body>
+<script src = "https://qn.cache.wpscdn.cn/js/jquery-1.9.1.min.js"> </script>
+<script src="./jwps.js"> </script>
+<script >
+    function openFile(filename)
+    {
+        $.get("/weboffice/url?_w_fname=" + filename , function(result) {
+            console.log(result);
+			wps = WPS.config({wpsUrl: result.wpsUrl});
+			wps.setToken({token: result.token});    
+        })
+    }
+</script>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      /* 防止双击缩放 */
+      touch-action: manipulation;
+    }
+
+    iframe {
+      flex: 1;
+    }
+  </style>
+</html> 

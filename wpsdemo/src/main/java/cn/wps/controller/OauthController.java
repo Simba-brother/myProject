@@ -24,6 +24,7 @@ public class OauthController  {
             return null;
         }
         String url = ApplicationProperties.domain + "/office";
+        System.out.println("马明亮");
         if (filename.endsWith("xls")) {
             url += "/s/2?";
         } else if (filename.endsWith("ppt")) {

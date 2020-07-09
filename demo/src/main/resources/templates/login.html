@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <title>login</title>
 </head>
-<body>
-<form role="form" action = "/loginIn" method="post">
-    账号：<input type="text" id="name" name = "name"> <br>
-    密码：<input type="password" id = "password" name = "password"> <br>
-    <input type="submit" id = "login" value = "login">
-</form>
-
+<body >
+<p id="id"></p>
+<button onclick="f()">获得标签</button>
+<script>
+    function f() {
+        var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+        httpRequest.open('GET', '/fileJson', true);
+        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                httpRequest.
+                var res = httpRequest.responseText;//获取到html字符串，解析
+                console.log(res);
+                document.getElementById("id").innerHTML = res;
+            }
+        };
+    }
+</script>
 </body>
 </html>
 
