@@ -5,19 +5,43 @@
     <title>login</title>
 </head>
 <body >
-<p id="id"></p>
+<p id = "id"></p>
 <button onclick="f()">获得标签</button>
+<button onclick="f2()">替换标签</button>
+<br>
+<br>
+
 <script>
     function f() {
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
-        httpRequest.open('GET', '/fileJson', true);
+        httpRequest.open('GET', '/getLabel', true);
         httpRequest.send();
         httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-
+            if (httpRequest.readyState === 4 && httpRequest.status == 200) {
                 var res = httpRequest.responseText;//获取到html字符串，解析
                 console.log(res);
                 document.getElementById("id").innerHTML = res;
+            }
+        };
+    }
+
+    function f2() {
+        var x = document.getElementsByTagName("input")
+        var jsonStr = "{";
+        for (var i = 0; i < x.length; i++) {
+            var label = document.getElementById(i).getAttribute("name");
+            var value = document.getElementById(i).value;
+            jsonStr +="\"" +label+ "\"" +":" + "\""+value+"\""+",";
+        }
+        jsonStr = jsonStr.substring(0, jsonStr.length-1);
+        jsonStr += "}"
+        var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+        httpRequest.open("post","/replaceLabel", true);
+        httpRequest.setRequestHeader('content-type', 'application/json');
+        httpRequest.send(jsonStr);
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4 && httpRequest.status == 200) {
+               alert("修改成功！")
             }
         };
     }
