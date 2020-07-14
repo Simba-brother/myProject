@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import com.spire.doc.*;
 import com.spire.doc.documents.BookmarksNavigator;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+
+
 
 
 @Service
@@ -48,15 +47,44 @@ public class FileServiceImpl implements FileService{
         doc.loadFromFile("/Users/mml/repositories/myProject/demo/testLable.docx");
         //获得书签对象集合
         BookmarkCollection bookmarkCollection =  doc.getBookmarks();
-        //获得书签数量
-        int count = bookmarkCollection.getCount();
+        Iterator<Bookmark> iterator = bookmarkCollection.iterator();
+//        //获得书签数量
+//        int count = bookmarkCollection.getCount();
         //获得书签导航
         BookmarksNavigator bookmarksNavigator = new BookmarksNavigator(doc);
         //声明书签对象
         Bookmark bookmark = null;
         //存储书签名称集合
         TreeMap<String, String> bookmark_map = new TreeMap<>();
-
+        while(iterator.hasNext()) {
+            //得到书签
+            bookmark = iterator.next();
+            //得到书签名称
+            String name = bookmark.getName();
+            //获得书签内容
+            bookmarksNavigator.moveToBookmark(name);
+            TextBodyPart textBodyPart = bookmarksNavigator.getBookmarkContent();
+            String content = "";
+            //遍历书签内容的项目
+            for (Object item : textBodyPart.getBodyItems()) {
+                //判断项目是否为段落
+                if (item instanceof Paragraph) {
+                    Paragraph paragraph = (Paragraph) item;
+                    //遍历段落中的子对象
+                    for (Object childObj : paragraph.getChildObjects()) {
+                        //判断子对象是否为TextRange
+                        if (childObj instanceof TextRange) {
+                            //获取TextRange中的文本
+                            TextRange textRange = (TextRange) childObj;
+                            content = content + textRange.getText();
+                        }
+                    }
+                }
+            }
+            //标签与内容映射
+            bookmark_map.put(name, content);
+        }
+        /**
         for (int i = 0; i < count; i++) {
             //得到书签
             bookmark = bookmarkCollection.get(i);
@@ -85,6 +113,7 @@ public class FileServiceImpl implements FileService{
             //标签与内容映射
             bookmark_map.put(name, content);
         }
+         */
         //拼接前端html
         StringBuffer html = new StringBuffer();
         int id = 0;

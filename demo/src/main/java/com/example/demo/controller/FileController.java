@@ -30,7 +30,7 @@ public class FileController {
     }
 
     @RequestMapping("/replaceLabel")
-    @ResponseBody
+    //@ResponseBody
     /**
      * map: <书签1：新值1， 标签2：新值2>
      */
